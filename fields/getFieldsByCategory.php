@@ -1,15 +1,18 @@
 <?php
 include "../conn.php";
+
 $json = array();
 class emp{}
 if($conn){
-	$query = mysqli_query($conn,"SELECT tempat.*,kategori.nama as kategori FROM tempat INNER JOIN kategori ON kategori.id= tempat.id_kategori ORDER BY nama ASC");
+
+	$id 	= $_GET['id'];
 	
-	$json = array();
+	$query = mysqli_query($conn,"SELECT tempat.*,kategori.nama as kategori FROM tempat INNER JOIN kategori ON kategori.id= tempat.id_kategori WHERE id_kategori='".$id."' ORDER BY nama ASC");
 	
 	while($row = mysqli_fetch_assoc($query)){
 		$json[] = $row;
 	}
+	
 	if($query){
 		$response = new emp();
 			$response->success = 1;
